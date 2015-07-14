@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+  
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <title>Socket.IO簡易デモ</title>
+  
+    </head>
+    <body>
+        <p id="value">test</p>
+
+        <script type="text/javascript">
+            var socket = io();
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener("deviceorientation", function () {
+                    var x = Math.round(event.beta || 0); // -90 :: 90
+                    var y = Math.round(event.gamma || 0); // -180 :: 180
+                    $("#value").text(x+":"+y);
+                    socket.emit("setData", { beta : x , gamma : y});
+                }, false);
+            }else{
+                $("#value").text("error");
+            }
+        </script>
+        
+    </body>
+</html>
+
+
+
