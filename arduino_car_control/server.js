@@ -56,6 +56,6 @@ io.on('connection', function(socket) {
     if(tilt.gamma < -20)
       digitalWrite(RIGHT,true);
     //すべてのクライアントと傾きの値を共有
-    io.sockets.emit("shareTilt",tilt);
+    io.sockets.emit("mobileTiltUpdated",tilt);
   });
 });

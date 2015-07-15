@@ -14,7 +14,7 @@
 
         <script type="text/javascript">
             var socket = io();
-            socket.on('shareTilt',function(tilt){
+            socket.on('mobileTiltUpdated',function(tilt){
                 $("#value").text(tilt.beta + ":" + tlit.gamma);
             });
             if (window.DeviceOrientationEvent) {
