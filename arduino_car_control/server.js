@@ -33,7 +33,7 @@ console.log("board version"+arduino.boardVersion);
 
 io.on('connection', function(socket) {
   console.log("connected");
-  socket.on('readTheValue', function(dataFromClient) {
+  socket.on('tilt', function(tilt) {
     //すべてのピンの出力をfalseに
     for (i in pinNumber)
       digitalWrite(pinNumber[i],false);
@@ -51,7 +51,7 @@ io.on('connection', function(socket) {
 
     if(dataFromClient.gamma < -20)
       digitalWrite(pinNumber["right"],true);
-  
-    io.sockets.emit('shareTheValue',dataFromClient);
+    //すべてのクライアントと傾きの値を共有
+    io.sockets.emit("shareTilt",tilt);
   });
 });
