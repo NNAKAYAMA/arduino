@@ -10,16 +10,19 @@
   
     </head>
     <body>
-        <p id="value">test</p>
+        <h1 id="value">test</h1>
 
         <script type="text/javascript">
             var socket = io();
+            socket.on('shareTheValue',function(dataFromServer){
+                $("#value").text(dataFromServer.beta + ":" + dataFromServer.gamma);
+            });
             if (window.DeviceOrientationEvent) {
                 window.addEventListener("deviceorientation", function () {
                     var x = Math.round(event.beta || 0); // -90 :: 90
                     var y = Math.round(event.gamma || 0); // -180 :: 180
                     $("#value").text(x+":"+y);
-                    socket.emit("setData", { beta : x , gamma : y});
+                    socket.emit("readTheValue", { beta : x , gamma : y});
                 }, false);
             }else{
                 $("#value").text("error");
