@@ -18,7 +18,10 @@ http.listen(8000);
 //シリアルポートの設定
 var sirialPort = 'COM3';
 //ピン配置の設定
-var pinNumber = { back : 6 ,foward : 7 ,left : 9 ,right : 10};
+const BACK = 6,
+      FOWARD = 7,
+      LEFT = 8,
+      RIGHT = 9;
 var ArduinoFirmata = require('arduino-firmata');
 var arduino = new ArduinoFirmata();
 arduino.connect(sirialPort);
@@ -35,22 +38,23 @@ io.on('connection', function(socket) {
   console.log("connected");
   socket.on('tilt', function(tilt) {
     //すべてのピンの出力をfalseに
-    for (i in pinNumber)
-      digitalWrite(pinNumber[i],false);
-    
+    digitalWrite(FOWARD,false);
+    digitalWrite(BACK,false);
+    digitalWrite(LEFT,false);
+    digitalWrite(RIGHT,false);
     //前後の切り替え
-    if(dataFromClient.beta > 20)
-      digitalWrite(pinNumber["back"],true);
+    if(tilt.beta > 20)
+      digitalWrite(BACK,true);
 
-    if(dataFromClient.beta < -20)   
-      digitalWrite(pinNumber["foward"],true);
+    if(tilt.beta < -20)   
+      digitalWrite(FOWARD,true);
     
     // 左右の切り替え
-    if(dataFromClient.gamma > 20)
-      digitalWrite(pinNumber["left"],true);
+    if(tilt.gamma > 20)
+      digitalWrite(LEFT,true);
 
-    if(dataFromClient.gamma < -20)
-      digitalWrite(pinNumber["right"],true);
+    if(tilt.gamma < -20)
+      digitalWrite(RIGHT,true);
     //すべてのクライアントと傾きの値を共有
     io.sockets.emit("shareTilt",tilt);
   });
