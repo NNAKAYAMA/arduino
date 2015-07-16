@@ -14,8 +14,8 @@
 
         <script type="text/javascript">
             var socket = io();
-            socket.on('mobileTiltUpdated',function(tilt){
-                $("#value").text(tilt.beta + ":" + tlit.gamma);
+            socket.on('mobileTiltUpdated',function(tiltUpdated){
+                $("#value").text(tiltUpdated.beta + ":" + tiltUpdated.gamma);
             });
             if (window.DeviceOrientationEvent) {
                 window.addEventListener("deviceorientation", function () {

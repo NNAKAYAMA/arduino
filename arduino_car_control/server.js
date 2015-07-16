@@ -38,23 +38,23 @@ io.on('connection', function(socket) {
   console.log("connected");
   socket.on('tilt', function(tilt) {
     //すべてのピンの出力をfalseに
-    digitalWrite(FOWARD,false);
-    digitalWrite(BACK,false);
-    digitalWrite(LEFT,false);
-    digitalWrite(RIGHT,false);
+    arduino.digitalWrite(FOWARD,false);
+    arduino.digitalWrite(BACK,false);
+    arduino.digitalWrite(LEFT,false);
+    arduino.digitalWrite(RIGHT,false);
     //前後の切り替え
     if(tilt.beta > 20)
-      digitalWrite(BACK,true);
+      arduino.digitalWrite(BACK,true);
 
     if(tilt.beta < -20)   
-      digitalWrite(FOWARD,true);
+      arduino.digitalWrite(FOWARD,true);
     
     // 左右の切り替え
     if(tilt.gamma > 20)
-      digitalWrite(LEFT,true);
+      arduino.digitalWrite(LEFT,true);
 
     if(tilt.gamma < -20)
-      digitalWrite(RIGHT,true);
+      arduino.digitalWrite(RIGHT,true);
     //すべてのクライアントと傾きの値を共有
     io.sockets.emit("mobileTiltUpdated",tilt);
   });
