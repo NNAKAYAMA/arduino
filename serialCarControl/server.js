@@ -25,6 +25,11 @@ var sp = new SerialPort(portName, {
     flowControl: true
 });
 
+int BACK = 6,
+    FOWARD = 7,
+    LEFT = 9,
+    RIGHT = 10;
+
 /*
 **アクセスが起こった時の反応
 */
@@ -33,9 +38,28 @@ io.on('connection', function(socket) {
   socket.on('tilt', function(tilt) {
     //console.log(tilt);
     //arduinoに傾きの値を送信
-    sp.write(tilt.beta);
-    sp.write(tilt.gamma);
+    // sp.write(tilt.beta);
+    // sp.write(tilt.gamma);
 
+    if(tilt.beta > 20)
+       sp.write(BACK + 16);
+    else
+      sp.write(BACK); 
+    
+    if(tilt.beta < -20)
+       sp.write(FOWARD + 16);
+    else
+      sp.write(FOWARD); 
+    
+    if(tilt.gamma > 20)
+      sp.write(LEFT + 16);
+    else
+      sp.wrtie(LEFT);
+
+    if(tilt.gamma < -20)
+      sp.write(RIGHT + 16):
+    else
+      sp.write(RIGHT);
     //すべてのクライアントと傾きの値を共有
     //io.sockets.emit("mobileTiltUpdated",tilt);
   });
