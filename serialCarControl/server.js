@@ -30,26 +30,18 @@ var sp = new SerialPort(portName, {
 */
 io.on('connection', function(socket) {
   console.log("connected");
-  //sp.write(1);
   socket.on('tilt', function(tilt) {
     //console.log(tilt);
     //arduinoに傾きの値を送信
-    var buff = 0;
-    if(tilt.beta > 20)
-        buff += 1;
-    if(tilt.beta < -20)
-        buff += 2;
-    if(tilt.gamma > 20)
-        buff += 4;
-    if(tilt.gamma < -20)
-        buff += 8;
-    sp.write(buff);
-    //console.log(buff);
+    sp.write(tilt.beta);
+    sp.write(tilt.gamma);
+
     //すべてのクライアントと傾きの値を共有
     //io.sockets.emit("mobileTiltUpdated",tilt);
   });
 });
 
+//arduinoからデータが送れれた時
 sp.on('data', function(input){
   //console.log(input);
 });
