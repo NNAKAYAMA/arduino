@@ -20,7 +20,7 @@ void loop() {
   }
     if(beta == '1'){
       digitalWrite(BACK,HIGH);
-      digitalWrite(BACK,LOW);
+      digitalWrite(FOWARD,LOW);
     }
     if(beta == '2'){
       digitalWrite(BACK,LOW);
