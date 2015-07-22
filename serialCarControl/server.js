@@ -52,20 +52,20 @@ io.on('connection', function(socket) {
 //arduinoに傾きの値を送信
 var send = setInterval(function() {
   var buff;
-  if(BETA > 30)
+  if(BETA > 20)
     buff = '1'
-  else if(BETA < -30)
+  else if(BETA < -20)
     buff = '2';
   else
     buff = '0';
-  if(GAMMA > 30)
+  if(GAMMA > 20)
     buff += '1';
-  else if(GAMMA < -30)
+  else if(GAMMA < -20)
     buff += '2';
   else
     buff += '0';
  sp.write(buff);
-  },100);
+  },50);
 
 //arduinoからデータが送れれた時
 sp.on('data', function(input) {
