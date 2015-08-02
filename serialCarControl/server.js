@@ -10,7 +10,7 @@ var http = require('http').createServer(function(req, res) {
 });
 
 var io = require('socket.io')(http);
-http.listen(8000);
+http.listen(80);
 
 /*
 ** シリアルポートの設定
@@ -23,13 +23,7 @@ var sp = new serialPort.SerialPort(portName, {
     parity: 'none',
     stopBits: false,
     flowControl: false
-    //parser: serialport.parsers.readline("\n")
 });
-
-var BACK = 6,
-    FOWARD = 0,
-    LEFT = 9,
-    RIGHT = 10;
 
 var BETA = 0,
     GAMMA = 0;
@@ -40,12 +34,11 @@ var BETA = 0,
 io.on('connection', function(socket) {
   console.log("connected");
   socket.on('tilt', function(tilt) {
-    //console.log(tilt);
     BETA = tilt.beta;
     GAMMA = tilt.gamma;
     
     //すべてのクライアントと傾きの値を共有
-    //io.sockets.emit("mobileTiltUpdated",tilt);
+    io.sockets.emit("mobileTiltUpdated",tilt);
   });
 });
 
@@ -53,21 +46,21 @@ io.on('connection', function(socket) {
 var send = setInterval(function() {
   var buff;
   if(BETA > 20)
-    buff = '1'
+    buff = '1';
   else if(BETA < -20)
     buff = '2';
   else
     buff = '0';
+//  sp.write(buff);
   if(GAMMA > 20)
-    buff += '1';
+    buff = '1';
   else if(GAMMA < -20)
-    buff += '2';
+    buff = '2';
   else
-    buff += '0';
- sp.write(buff);
+    buff = '0';
+//    sp.write(buff);
   },50);
 
 //arduinoからデータが送れれた時
-sp.on('data', function(input) {
-//  console.log(input + "rsv data!!");
-});
+// sp.on('data', function(input) {
+// });
