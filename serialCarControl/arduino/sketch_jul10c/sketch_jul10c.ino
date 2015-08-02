@@ -14,31 +14,27 @@ void setup() {
 
 void loop() {
   
-  if(Serial.available() > 1){ 
+  if(Serial.available() > 0){ 
     beta = Serial.read();
     gamma = Serial.read();
   }
     if(beta == '1'){
       digitalWrite(BACK,HIGH);
       digitalWrite(FOWARD,LOW);
-    }
-    if(beta == '2'){
+    }else if(beta == '2'){
       digitalWrite(BACK,LOW);
       digitalWrite(FOWARD,HIGH);
-    }
-    if(beta == '0'){
+    }else{
       digitalWrite(BACK,LOW);
       digitalWrite(FOWARD,LOW);
     }
     if(gamma == '1'){
       digitalWrite(LEFT,HIGH);
       digitalWrite(RIGHT,LOW);
-    }
-    if(gamma == '2'){
+    }else if(gamma == '2'){
       digitalWrite(LEFT,LOW);
       digitalWrite(RIGHT,HIGH);
-    }
-    if(gamma == '0'){
+    }else{
       digitalWrite(LEFT,LOW);
       digitalWrite(RIGHT,LOW);
     }
