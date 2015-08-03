@@ -51,14 +51,14 @@ var send = setInterval(function() {
     buff = '2';
   else
     buff = '0';
-//  sp.write(buff);
+  sp.write(buff);
   if(GAMMA > 20)
     buff = '1';
   else if(GAMMA < -20)
     buff = '2';
   else
     buff = '0';
-//    sp.write(buff);
+    sp.write(buff);
   },50);
 
 //arduinoからデータが送れれた時
