@@ -27,10 +27,9 @@ var sp = new serialPort.SerialPort(portName, {
 
 var BETA = 0,
     GAMMA = 0;
-
 /*
 **アクセスが起こった時の反応
-*/
+*/ 
 io.on('connection', function(socket) {
   console.log("connected");
   socket.on('tilt', function(tilt) {
@@ -51,14 +50,14 @@ var send = setInterval(function() {
     buff = '2';
   else
     buff = '0';
-//  sp.write(buff);
+  sp.write(buff);
   if(GAMMA > 20)
     buff = '1';
   else if(GAMMA < -20)
     buff = '2';
   else
     buff = '0';
-//    sp.write(buff);
+    sp.write(buff);
   },50);
 
 //arduinoからデータが送れれた時
