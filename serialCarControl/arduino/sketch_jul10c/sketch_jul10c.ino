@@ -6,7 +6,7 @@ char beta = '0',
     gamma = '0';
 void setup() {
   pinMode(BACK, OUTPUT);
-  pinMode(FOWARD, OUTPUT);
+  pinMode(FORWARD, OUTPUT);
   pinMode(LEFT, OUTPUT);
   pinMode(RIGHT, OUTPUT);
   Serial.begin(115200);
@@ -20,13 +20,13 @@ void loop() {
   }
     if(beta == '1'){
       digitalWrite(BACK,HIGH);
-      digitalWrite(FOWARD,LOW);
+      digitalWrite(FORWARD,LOW);
     }else if(beta == '2'){
       digitalWrite(BACK,LOW);
-      digitalWrite(FOWARD,HIGH);
+      digitalWrite(FORWARD,HIGH);
     }else{
       digitalWrite(BACK,LOW);
-      digitalWrite(FOWARD,LOW);
+      digitalWrite(FORWARD,LOW);
     }
     if(gamma == '1'){
       digitalWrite(LEFT,HIGH);
